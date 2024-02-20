@@ -16,3 +16,20 @@ const getLatestNews = async () => {
 };
 
 getLatestNews();
+
+// 햄버거 클릭시 사이드바 open
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
+// 우측상단 X버튼 클릭시 close
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
+// 햄버거메뉴 V
+// 누나가 사용한 것은 Sidenav overlay V
+// 데스크탑 모드일 때 햄버거메뉴 안보임 V
+// 모바일 모드일 때 메뉴들이 사라지고 햄버거가 나타남 V
+// 햄버거를 클릭하면 메뉴들이 사이드바로 나타남 메뉴들은 세로정렬 V
+
+// 인풋, Go버튼은 평소에는 숨겨져있다
+// 검색아이콘을 클릭하면 인풋, Go버튼이 나타난다

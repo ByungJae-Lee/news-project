@@ -1,0 +1,122 @@
+@media (max-width: 600px) {
+}
+@media (min-width: 600px) and (max-width: 992px) {
+  /* #hamburger {
+    display: none;
+  } */
+}
+@media (min-width: 992px) {
+  /* #hamburger {
+    display: none;
+  } */
+}
+.side-nav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  justify-content: center;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: black;
+  overflow-x: hidden;
+  padding-top: 60px;
+  transition: 0.5s;
+}
+.side-nav button {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+  border: none;
+  background: none;
+}
+.side-nav button:hover {
+  color: white;
+}
+.side-nav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  font-size: 25px;
+  margin-left: 50px;
+  color: #818181;
+}
+.side-nav .closebtn:hover {
+  color: white;
+}
+.top-nav {
+  display: flex;
+  border: 1px solid black;
+}
+#hamburger {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+#hamburger:hover {
+  background-color: wheat;
+}
+#search-icon {
+  cursor: pointer;
+  margin-right: 0.5em;
+  border: none;
+  background: none;
+}
+#search-icon:hover {
+  background-color: wheat;
+}
+#serch-input {
+  border-radius: 5px;
+  margin-right: 5px;
+}
+#go-btn {
+  border-radius: 5px;
+  background-color: wheat;
+}
+.head-line {
+  margin-top: 1em;
+  /* 가운데 정렬하고 싶으면?
+  정렬할 자식의 부모에게
+  display: flex;
+  justify-content: center;
+   */
+  display: flex;
+  justify-content: center;
+}
+.head-line svg {
+  width: 430px;
+}
+.menus {
+  margin-top: 1em;
+  display: flex;
+  justify-content: center;
+  /* flex-wrap: wrap
+  메뉴라인들 크기에 맞게 유동적배치,
+  안삐져나옴 */
+  flex-wrap: wrap;
+  border-top: 1px solid #ebebeb;
+  border-bottom: 4px double black;
+}
+.menus button {
+  /* 버튼의 뒷배경을 숨기려면
+  border: none;
+  background: none;
+  */
+  border: none;
+  background: none;
+  margin: 5px;
+}
+.menus button:hover {
+  background-color: beige;
+}
+.new-img-size {
+  /* 부모(비율설정한 col)의 최대넓이 100%까지 */
+  max-width: 100%;
+  max-height: 250px;
+}
+.news {
+  border-bottom: 2px solid black;
+}
