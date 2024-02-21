@@ -1,18 +1,44 @@
 // API key를 따로 빼둠
 const API_KEY = `8024fec327eb489fb8d9674cbcc596a9`;
-let news = [];
+let newsList = [];
 
 const getLatestNews = async () => {
   const url =
     // URL인스턴스는 url에 필요한 함수와 변수들을 제공함
-    new URL(`https://newstimesbbc.netlify.app//top-headlines
+    new URL(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}
   `);
   console.log(url);
   const response = await fetch(url);
   // JSON을 통해 우리가 원하는 data의 형태로 받아올 수 있음
   const data = await response.json();
-  news = data.articles;
-  console.log("뉴스", news);
+  newsList = data.articles;
+  render();
+  console.log("뉴스", newsList);
+};
+
+// 렌더함수
+const render = () => {
+  const newsHTML = newsList
+    .map(
+      (news) => `<div class="row news">
+  <div class="col-lg-4">
+    <img
+      class="new-img-size"
+      src=${news.urlToImage}
+      alt=""
+    />
+  </div>
+  <div class="col-lg-8">
+    <h2>${news.title}</h2>
+    <p>${news.description}</p>
+    <div>${news.source.name} * ${news.publishedAt}</div>
+  </div>
+</div>`
+    )
+    .join("");
+  // join메서드는 배열 중간의 컴마를 없애줌
+
+  document.getElementById("news-board").innerHTML = newsHTML;
 };
 
 getLatestNews();
@@ -50,5 +76,3 @@ function openSch() {
     isHidden = true;
   }
 }
-
-function render() {}
