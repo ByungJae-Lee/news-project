@@ -5,11 +5,11 @@ const menus = document.querySelectorAll(".menus button");
 menus.forEach((menu) =>
   menu.addEventListener("click", (event) => getNewsByCategory(event))
 );
-
+// 최신뉴스 함수
 const getLatestNews = async () => {
   const url =
     // URL인스턴스는 url에 필요한 함수와 변수들을 제공함
-    new URL(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}
+    new URL(`http://times-node-env.eba-appvq3ef.ap-northeast-2.elasticbeanstalk.com/top-headlines
   `);
   console.log(url);
   const response = await fetch(url);
@@ -19,12 +19,12 @@ const getLatestNews = async () => {
   render();
   console.log("뉴스", newsList);
 };
-
+// 카테고리별 클릭시 뉴스 함수
 const getNewsByCategory = async (event) => {
   const category = event.target.textContent.toLowerCase();
   console.log("category", category);
   const url =
-    new URL(`https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}
+    new URL(`http://times-node-env.eba-appvq3ef.ap-northeast-2.elasticbeanstalk.com/top-headlines?category=${category}
   `);
   const response = await fetch(url);
   const data = await response.json();
@@ -107,4 +107,4 @@ function openSch() {
 
 // 1. 버튼들에 클릭이벤트 가져오기 V
 // 2. 카테고리별 뉴스 가져오기 V
-// 3. 그 뉴스를 보여준다
+// 3. 그 뉴스를 보여준다 V
