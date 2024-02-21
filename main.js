@@ -1,6 +1,10 @@
 // API key를 따로 빼둠
 const API_KEY = `8024fec327eb489fb8d9674cbcc596a9`;
 let newsList = [];
+const menus = document.querySelectorAll(".menus button");
+menus.forEach((menu) =>
+  menu.addEventListener("click", (event) => getNewsByCategory(event))
+);
 
 const getLatestNews = async () => {
   const url =
@@ -16,6 +20,19 @@ const getLatestNews = async () => {
   console.log("뉴스", newsList);
 };
 
+const getNewsByCategory = async (event) => {
+  const category = event.target.textContent.toLowerCase();
+  console.log("category", category);
+  const url =
+    new URL(`https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}
+  `);
+  const response = await fetch(url);
+  const data = await response.json();
+  console.log("data", data);
+  newsList = data.articles;
+  render();
+};
+
 // 렌더함수
 const render = () => {
   const newsHTML = newsList
@@ -24,14 +41,25 @@ const render = () => {
   <div class="col-lg-4">
     <img
       class="new-img-size"
-      src=${news.urlToImage}
+      src=${
+        news.urlToImage ||
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqEWgS0uxxEYJ0PsOb2OgwyWvC0Gjp8NUdPw&usqp=CAU"
+      }
       alt=""
     />
   </div>
   <div class="col-lg-8">
     <h2>${news.title}</h2>
-    <p>${news.description}</p>
-    <div>${news.source.name} * ${news.publishedAt}</div>
+    <p>${
+      news.description === null || news.description === ""
+        ? "내용없음"
+        : news.description.length > 200
+        ? news.description.substring(0, 200) + "..."
+        : news.description
+    }</p>
+    <div>${news.source.name || "no source"} * ${moment(
+        news.publishedAt
+      ).fromNow()}</div>
   </div>
 </div>`
     )
@@ -76,3 +104,7 @@ function openSch() {
     isHidden = true;
   }
 }
+
+// 1. 버튼들에 클릭이벤트 가져오기 V
+// 2. 카테고리별 뉴스 가져오기 V
+// 3. 그 뉴스를 보여준다
