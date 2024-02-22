@@ -5,32 +5,45 @@ const menus = document.querySelectorAll(".menus button");
 menus.forEach((menu) =>
   menu.addEventListener("click", (event) => getNewsByCategory(event))
 );
-// 최신뉴스 함수
-const getLatestNews = async () => {
-  const url =
-    // URL인스턴스는 url에 필요한 함수와 변수들을 제공함
-    new URL(`https://newstimesbbc.netlify.app/top-headlines
-  `);
-  console.log(url);
+let url =
+  new URL(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}
+`);
+
+// 코드 리펙토링
+const getNews = async () => {
   const response = await fetch(url);
-  // JSON을 통해 우리가 원하는 data의 형태로 받아올 수 있음
   const data = await response.json();
   newsList = data.articles;
   render();
-  console.log("뉴스", newsList);
+};
+// 기본 보여주는 함수
+const getLatestNews = async () => {
+  url =
+    // URL인스턴스는 url에 필요한 함수와 변수들을 제공함
+    new URL(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}
+    `);
+
+  getNews();
 };
 // 카테고리별 클릭시 뉴스 함수
 const getNewsByCategory = async (event) => {
   const category = event.target.textContent.toLowerCase();
-  console.log("category", category);
-  const url =
-    new URL(`https://newstimesbbc.netlify.app/top-headlines?category=${category}
+
+  url =
+    new URL(`https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}
   `);
-  const response = await fetch(url);
-  const data = await response.json();
-  console.log("data", data);
-  newsList = data.articles;
-  render();
+  getNews();
+};
+
+// 키워드검색 함수
+const getNewsByKeyword = async () => {
+  const keyword = document.getElementById("serch-input").value;
+
+  url = new URL(
+    `https://newsapi.org/v2/top-headlines?country=us&q=${keyword}&apiKey=${API_KEY}`
+  );
+
+  getNews();
 };
 
 // 렌더함수
