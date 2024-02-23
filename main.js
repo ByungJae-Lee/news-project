@@ -5,21 +5,35 @@ const menus = document.querySelectorAll(".menus button");
 menus.forEach((menu) =>
   menu.addEventListener("click", (event) => getNewsByCategory(event))
 );
-let url = new URL(`https://newstimesbbc.netlify.app/top-headlines
-`);
+let url = new URL(
+  `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`
+);
 
-// 코드 리펙토링
+// 코드 리펙토링 / 에러핸들링
 const getNews = async () => {
-  const response = await fetch(url);
-  const data = await response.json();
-  newsList = data.articles;
-  render();
+  try {
+    const response = await fetch(url);
+
+    console.log("rrr", response);
+    const data = await response.json();
+    if (response.status === 200) {
+      if (data.articles.length === 0) {
+        throw new Error("NO result for this search");
+      }
+      newsList = data.articles;
+      render();
+    } else {
+      throw new Error(data.message);
+    }
+  } catch (error) {
+    errorRender(error.message);
+  }
 };
-// 기본 보여주는 함수
+// 기본헤드라인 보여주는 함수
 const getLatestNews = async () => {
   url =
     // URL인스턴스는 url에 필요한 함수와 변수들을 제공함
-    new URL(`https://newstimesbbc.netlify.app/top-headlines
+    new URL(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}
     `);
 
   getNews();
@@ -29,7 +43,7 @@ const getNewsByCategory = async (event) => {
   const category = event.target.textContent.toLowerCase();
 
   url =
-    new URL(`https://newstimesbbc.netlify.app/top-headlines?category=${category}
+    new URL(`https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}
   `);
   getNews();
 };
@@ -38,7 +52,9 @@ const getNewsByCategory = async (event) => {
 const getNewsByKeyword = async () => {
   const keyword = document.getElementById("serch-input").value;
 
-  url = new URL(`https://newstimesbbc.netlify.app/top-headlines?q=${keyword}`);
+  url = new URL(
+    `https://newsapi.org/v2/top-headlines?country=us&q=${keyword}&apiKey=${API_KEY}`
+  );
 
   getNews();
 };
@@ -77,6 +93,14 @@ const render = () => {
   // join메서드는 배열 중간의 컴마를 없애줌
 
   document.getElementById("news-board").innerHTML = newsHTML;
+};
+// error렌더링 함수
+const errorRender = (errorMessage) => {
+  const errorHTML = `<div class="alert alert-danger" role="alert">
+  ${errorMessage}
+</div>`;
+
+  document.getElementById("news-board").innerHTML = errorHTML;
 };
 
 getLatestNews();
