@@ -130,18 +130,23 @@ const paginationRender = () => {
   // firstPage
   const firstPage =
     lastPage - (groupSize - 1) <= 0 ? 1 : lastPage - (groupSize - 1); // => pagination 0부터 시작하는걸 방지
-
-  let paginationHTML = ``;
+  // Previous버튼
+  let paginationHTML = `<li class="page-item" onclick="moveToPage(${
+    page - 1
+  })"><a class="page-link" >&lt</a></li>`;
 
   for (let i = firstPage; i <= lastPage; i++) {
     paginationHTML += `<li class="page-item ${
       i === page ? "active" : ""
     }" onclick="moveToPage(${i})" ><a class="page-link" >${i}</a></li>`;
   }
-
+  // Next버튼
+  paginationHTML += `<li class="page-item" onclick="moveToPage(${
+    page + 1
+  })"><a class="page-link" >&gt</a></li>`;
   document.querySelector(".pagination").innerHTML = paginationHTML;
 };
-
+// 페이지이동 함수
 const moveToPage = (pageNum) => {
   console.log("Move to page", pageNum);
   page = pageNum;
