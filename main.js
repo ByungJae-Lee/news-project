@@ -5,21 +5,32 @@ const menus = document.querySelectorAll(".menus button");
 menus.forEach((menu) =>
   menu.addEventListener("click", (event) => getNewsByCategory(event))
 );
-let url = new URL(`https://newnatimes.netlify.app/top-headlines`);
+let url = new URL(
+  `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}
+  `
+);
+let totalResults = 0;
+let page = 1;
+const pageSize = 10;
+const groupSize = 5;
 
 // 코드 리펙토링 / 에러핸들링
 const getNews = async () => {
   try {
     const response = await fetch(url);
+    console.log("res", response);
 
-    console.log("rrr", response);
     const data = await response.json();
+    console.log("data", data);
+
     if (response.status === 200) {
       if (data.articles.length === 0) {
         throw new Error("NO result for this search");
       }
       newsList = data.articles;
+      totalResults = data.totalResults;
       render();
+      paginationRender();
     } else {
       throw new Error(data.message);
     }
@@ -31,9 +42,8 @@ const getNews = async () => {
 const getLatestNews = async () => {
   url =
     // URL인스턴스는 url에 필요한 함수와 변수들을 제공함
-    new URL(`https://newnatimes.netlify.app/top-headlines
+    new URL(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}
     `);
-
   getNews();
 };
 // 카테고리별 클릭시 뉴스 함수
@@ -41,21 +51,22 @@ const getNewsByCategory = async (event) => {
   const category = event.target.textContent.toLowerCase();
 
   url =
-    new URL(`https://newnatimes.netlify.app/top-headlines?category=${category}
+    new URL(`https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}
   `);
   getNews();
 };
 
 // 키워드검색 함수
 const getNewsByKeyword = async () => {
-  const keyword = document.getElementById("serch-input").value;
+  const keyword = document.getElementById("search-input").value;
 
-  url = new URL(`https://newnatimes.netlify.app/top-headlines?q=${keyword}`);
+  url = new URL(
+    `https://newsapi.org/v2/top-headlines?country=us&q=${keyword}&apiKey=${API_KEY}`
+  );
 
   getNews();
 };
-
-// 렌더함수
+// 렌더링함수
 const render = () => {
   const newsHTML = newsList
     .map(
@@ -97,6 +108,29 @@ const errorRender = (errorMessage) => {
 </div>`;
 
   document.getElementById("news-board").innerHTML = errorHTML;
+};
+// 페이지네이션 렌더
+const paginationRender = () => {
+  // totalResult V
+  // page V
+  // pageSize V
+  // groupSize V
+
+  // pageGroup
+  const pageGroup = Math.ceil(page / groupSize);
+  // lastPage
+  const lastPage = pageGroup * groupSize;
+  // firstPage
+  const firstPage = lastPage - (groupSize - 1);
+  // totalPages
+
+  let paginationHTML = ``;
+
+  for (let i = firstPage; i <= lastPage; i++) {
+    paginationHTML += `<li class="page-item"><a class="page-link" href="#">${i}</a></li>`;
+  }
+
+  document.querySelector(".pagination").innerHTML = paginationHTML;
 };
 
 getLatestNews();
