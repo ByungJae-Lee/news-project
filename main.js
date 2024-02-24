@@ -6,7 +6,7 @@ menus.forEach((menu) =>
   menu.addEventListener("click", (event) => getNewsByCategory(event))
 );
 let url = new URL(
-  `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}
+  `https://newnatimes.netlify.app/top-headlines
   `
 );
 let totalResults = 0;
@@ -44,7 +44,7 @@ const getNews = async () => {
 const getLatestNews = async () => {
   url =
     // URL인스턴스는 url에 필요한 함수와 변수들을 제공함
-    new URL(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}
+    new URL(`https://newnatimes.netlify.app/top-headlines
     `);
   getNews();
 };
@@ -53,7 +53,7 @@ const getNewsByCategory = async (event) => {
   const category = event.target.textContent.toLowerCase();
 
   url =
-    new URL(`https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}
+    new URL(`https://newnatimes.netlify.app/top-headlines?category=${category}
   `);
   getNews();
 };
@@ -62,9 +62,7 @@ const getNewsByCategory = async (event) => {
 const getNewsByKeyword = async () => {
   const keyword = document.getElementById("search-input").value;
 
-  url = new URL(
-    `https://newsapi.org/v2/top-headlines?country=us&q=${keyword}&apiKey=${API_KEY}`
-  );
+  url = new URL(`https://newnatimes.netlify.app/top-headlines?q=${keyword}`);
 
   getNews();
 };
