@@ -1,9 +1,15 @@
 /* 미디어쿼리 */
 @media (max-width: 600px) {
+  .menus button {
+    display: none;
+  }
 }
 @media (min-width: 600px) and (max-width: 992px) {
   /* 화면에 보이지도 않고, 공간도 제거
   display: none; */
+  .menus button {
+    display: none;
+  }
 }
 @media (min-width: 992px) {
   #hamburger {
@@ -24,7 +30,8 @@
   transition: 0.5s;
 }
 .side-nav button {
-  padding: 8px 8px 8px 32px;
+  padding: 16px 8px 8px 60px;
+  /* margin-bottom: 1em; */
   text-decoration: none;
   font-size: 20px;
   color: #818181;
@@ -122,4 +129,8 @@
 }
 .page-item {
   cursor: pointer;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
 }

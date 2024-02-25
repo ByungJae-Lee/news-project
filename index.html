@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NYTimes</title>
+    <title>NewNaTimes</title>
     <!-- bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
@@ -25,6 +25,7 @@
 
   <body>
     <section class="container">
+      <!-- 사이드바 메뉴 -->
       <div id="mySidenav" class="side-nav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"
           ><i class="fa-solid fa-x"></i
@@ -44,10 +45,10 @@
         <button id="search-icon" onclick="openSch()">
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
-        <input id="search-input" type="text" placeholder="Search..." />
+        <input id="search-input" type="text" placeholder="입력하세요..." />
         <button id="go-btn" onclick="getNewsByKeyword()">Go</button>
       </div>
-
+      <!-- 상단메뉴 -->
       <section>
         <div class="head-line">
           <svg viewBox="0 0 184 25" fill="#000" aria-hidden="true">
@@ -66,6 +67,7 @@
           <button>Technology</button>
         </div>
       </section>
+      <!-- news 컨텐츠 -->
       <section id="news-board">
         <div class="row news">
           <div class="col-lg-4">
@@ -82,6 +84,7 @@
           </div>
         </div>
       </section>
+      <!-- 페이지네이션 -->
       <section>
         <nav aria-label="Page navigation example">
           <ul class="pagination"></ul>
