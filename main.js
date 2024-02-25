@@ -126,14 +126,13 @@ const paginationRender = () => {
   // pageGroup
   const pageGroup = Math.ceil(page / groupSize);
   // lastPage
-  let lastPage = pageGroup * groupSize;
+  let lastPage = pageGroup * 5;
   // 마지막 페이지그룹이 그룹사이즈보다 작다면? lastpage = totalpage
   if (lastPage > totalPages) {
     lastPage = totalPages;
   }
   // firstPage
-  const firstPage =
-    lastPage - (groupSize - 1) <= 0 ? 1 : lastPage - (groupSize - 1); // => pagination 0부터 시작하는걸 방지
+  const firstPage = lastPage - 4 <= 0 ? 1 : lastPage - 4; // => pagination 0부터 시작하는걸 방지
 
   let paginationHTML = ``;
   // Previous버튼
